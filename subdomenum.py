@@ -57,13 +57,26 @@ if __name__ == "__main__":
 
     # MongoDB Integration
     try:
-        # Connect to the MongoDB server
-        client = MongoClient('mongodb://localhost:27017/')
-        db = client['threatmap_db']  # Replace 'your_database_name' with your desired database name
-        collection = db['domain_data']  # Replace 'your_collection_name' with your desired collection name
+        # MongoDB connection Paremeters
+        db_user = "root"
+        db_password ="Sf409xqyNL3Eyue"
+        db_host = "10.10.10.31"
+        db_port = "27017"
+        db_name = "threatmap_db"
+
+        # MongoDB connection String
+        connection_string = f"mongodb://root:Sf409xqyNL3Eyue@10.10.10.31:27017/?authMechanism=DEFAULT"
+
+        # connect to MongoDB
+        client = MongoClient(connection_string)
+        db = client[db_name]
+
+        # collection    name
+        collection_name = 'domain_data'
 
         # Insert the data into the MongoDB collection
-        collection.insert_one(all_data)
+        collection=db[ collection_name]
+        collection.insert_one(all_data)  
         print("Data sent to MongoDB.")
     except Exception as e:
         print(f"Failed to send data to MongoDB: {e}")
