@@ -37,6 +37,12 @@ if __name__ == "__main__":
 
     whois_data = get_whois_data(domain_to_check)
     if whois_data:
+        whois_data['creation_date'] =str(whois_data['creation_date'])
+        whois_data['expiration_date'] =str(whois_data['expiration_date'])
+        whois_data['updated_date'] =str(whois_data['updated_date'])
+
+
+
         print(f"WHOIS data for {domain_to_check}:")
         print(whois_data)
     else:

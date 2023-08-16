@@ -1,0 +1,32 @@
+{
+  "domain": "iotec.io",
+  "subdomains": [
+    "*.iotec.io\niotec.io",
+    "loans.iotec.io",
+    "messaging.iotec.io",
+    "kyc.iotec.io",
+    "pay.iotec.io\nwww.pay.iotec.io",
+    "vault.iotec.io",
+    "messaging-staging.iotec.io",
+    "kyc-staging.iotec.io",
+    "iotec.io\nwww.iotec.io"
+  ],
+  "ip_addresses": [
+    "23.236.62.147"
+  ],
+  "whois_data": {
+    "domain_name": null,
+    "domain__id": null,
+    "registrar": null,
+    "registrar_id": null,
+    "registrar_url": null,
+    "status": null,
+    "registrant_name": null,
+    "registrant_state_province": null,
+    "registrant_country": null,
+    "name_servers": null,
+    "creation_date": "None",
+    "expiration_date": "None",
+    "updated_date": "None"
+  }
+}
