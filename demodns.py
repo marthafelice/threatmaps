@@ -20,7 +20,7 @@ def get_ip_addresses(domain):
         return ips[2]
     except socket.gaierror:
         return []
-
+   
 def get_whois_data(domain):
     return whois.whois(domain)
 
@@ -85,4 +85,4 @@ if __name__ == "__main__":
         collection.insert_one(all_data)  
         print("Data sent to MongoDB.")
     except Exception as e:
-        print(f"Failed to send data to MongoDB: {e}")
+        print(f"Failed to send data to MongoDB: {e}") 
