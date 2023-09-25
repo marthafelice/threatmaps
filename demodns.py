@@ -120,12 +120,11 @@ if __name__ == "__main__":
         df = pd.read_excel(excel_file)
         
         for index, row in df.iterrows():
-            name = row['Name']
             domain = row['Domain']
-            category = row['Category']
-            subcategory = row['Subcategory']
+            category = row['Sector']
 
-            process_and_save_data(name, domain, category, subcategory)
+
+            process_and_save_data(domain, category)
     except Exception as e:
         print(f"Error reading the Excel file: {e}")
         
