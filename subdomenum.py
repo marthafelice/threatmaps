@@ -1,88 +1,60 @@
+# import pandas as pd
+# import socket
 
-import requests
+# # Function to resolve a domain name to IP addresses
+# def resolve_domain_to_ip(domain):
+#     try:
+#         ips = socket.gethostbyname_ex(domain)
+#         return ips[2]
+#     except socket.gaierror:
+#         return None
+
+# # Function to determine if a domain is associated with Cloudflare
+# def is_cloudflare(ip_addresses):
+#     return len(ip_addresses) > 1 if ip_addresses else False
+
+# # Load the Excel file into a DataFrame
+# excel_file = "threatmap_data.xlsx"  # Replace with the path to your Excel file
+# df = pd.read_excel(excel_file)
+
+# # Create a new column 'ip_addresses' and populate it with resolved IP addresses (excluding None)
+# df['ip_addresses'] = df['Domain'].apply(resolve_domain_to_ip)
+
+# # Create a new column 'is_cloudflare' and set it based on the IP addresses (excluding None)
+# df['is_cloudflare'] = df['ip_addresses'].apply(is_cloudflare)
+
+# # Drop rows where 'ip_addresses' is None (domains not found)
+# df = df.dropna(subset=['ip_addresses'])
+
+# # Create a new CSV file with the original data, IP addresses, and Cloudflare flag
+# new_csv_file = "new_csv_file.csv"  # Replace with the desired name for the new CSV file
+# df.to_csv(new_csv_file, index=False)
+
+import pandas as pd
 import socket
-import whois
-import json
-from pymongo import MongoClient
-def get_subdomains(domain):
-    url = f"https://crt.sh/?q=%.{domain}&output=json"
-    response = requests.get(url)
-    subdomains = set()
-    if response.ok:
-        data = response.json()
-        for entry in data:
-            subdomains.add(entry['name_value'])
-    return subdomains
 
-def get_ip_addresses(domain):
+# Function to resolve a domain name to IP addresses
+def resolve_domain_to_ip(domain):
     try:
         ips = socket.gethostbyname_ex(domain)
         return ips[2]
     except socket.gaierror:
-        return []
+        return None
 
-def get_whois_data(domain):
-    return whois.whois(domain)
+# Function to determine if a domain is associated with Cloudflare
+def is_cloudflare(ip_addresses):
+    return len(ip_addresses) > 1 if ip_addresses else False
 
-if __name__ == "__main__":
-    domain_to_check = input("Enter the domain you want to investigate: ")
+# Load the Excel file into a DataFrame
+excel_file = "threatmap_data.xlsx"  # Replace with the path to your Excel file
+df = pd.read_excel(excel_file)
 
-    subdomains = get_subdomains(domain_to_check)
-    print(f"Subdomains for {domain_to_check}:")
-    print(subdomains)
+# Create a new column 'ip_addresses' and populate it with resolved IP addresses (excluding None)
+df['ip_addresses'] = df['Domain'].apply(resolve_domain_to_ip)
 
-    ip_addresses = get_ip_addresses(domain_to_check)
-    print(f"IP addresses for {domain_to_check}:")
-    print(ip_addresses)
+# Create a new column 'is_cloudflare' and set it based on the IP addresses (excluding None)
+df['is_cloudflare'] = df['ip_addresses'].apply(is_cloudflare)
 
-    whois_data = get_whois_data(domain_to_check)
-    if whois_data:
-        whois_data['creation_date'] =str(whois_data['creation_date'])
-        whois_data['expiration_date'] =str(whois_data['expiration_date'])
-        whois_data['updated_date'] =str(whois_data['updated_date'])
-
-
-
-        print(f"WHOIS data for {domain_to_check}:")
-        print(whois_data)
-    else:
-        print("Failed to retrieve WHOIS data.")
-
-    # Collect all the data into a single dictionary
-    all_data = {
-        "domain": domain_to_check,
-        "subdomains": list(subdomains),
-        "ip_addresses": ip_addresses,
-        "whois_data": whois_data
-    }
-
-    # Save all information to a JSON file
-    with open(f"{domain_to_check}_all_data.json", "w") as f:
-        json.dump(all_data, f, indent=2)
-    print("All information saved to JSON file.")
-
-    # MongoDB Integration
-    try:
-        # MongoDB connection Paremeters
-        db_user = "root"
-        db_password ="Sf409xqyNL3Eyue"
-        db_host = "10.10.10.31"
-        db_port = "27017"
-        db_name = "threatmap_db"
-
-        # MongoDB connection String
-        connection_string = f"mongodb://root:Sf409xqyNL3Eyue@10.10.10.31:27017/?authMechanism=DEFAULT"
-
-        # connect to MongoDB
-        client = MongoClient(connection_string)
-        db = client[db_name]
-
-        # collection    name
-        collection_name = 'domain_data'
-
-        # Insert the data into the MongoDB collection
-        collection=db[ collection_name]
-        collection.insert_one(all_data)  
-        print("Data sent to MongoDB.")
-    except Exception as e:
-        print(f"Failed to send data to MongoDB: {e}")
+# Create a new CSV file with the original data, Cloudflare flag, and without the second IP address column
+new_csv_file = "resolved_file.csv"
+df.to_csv(new_csv_file, index=False)
