@@ -23,6 +23,8 @@
 #         quit()
 # import whois
 # print(whois.whois("fortifys.com"))
+# import whois
+# print(whois.whois("fortifys.com"))
 
 
 import requests
