@@ -16,12 +16,8 @@ if __name__ == "__main__":
     mydb = myclient["ifortify_threat_intelligence"]
     mycol = mydb["subdomains"]
     
-    # mycol.delete_many(myquery)
-    # myquery = mycol.find({}, {"_id": 1, "ip_address":1})
-    # for x in myquery:
-    #     print(x)
     
-    for x in mycol.find({'domain':{'$exists':True,'$ne':[]}}, {"_id": 1, "ip_address":1}):
+    for x in mycol.find({}, {"_id": 1, "ip_address":1, "domain":1}):
        
         
         ip_address= get_ip_addresses(x["domain"])
@@ -29,6 +25,8 @@ if __name__ == "__main__":
         if ip_address != None:    
        
             mycol.update_one({ '_id': x["_id"]},{"$set":{'ip_address' : ip_address}})
+            
+            
             
           
    
