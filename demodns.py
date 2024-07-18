@@ -22,9 +22,9 @@
 #         print('Goodbye...')
 #         quit()
 # import whois
-# print(whois.whois("fortifys.com"))
+# print(whois.whois("test.com"))
 # import whois
-# print(whois.whois("fortifys.com"))
+# print(whois.whois("test.com"))
 
 
 import requests
@@ -98,7 +98,7 @@ def process_and_save_data(name, domain_to_check, category, subcategory):
         db_name = "threatmap_db"  
 
         # MongoDB Connection String
-        connection_string = f"mongodb://root:Sf409xqyNL3Eyue@10.10.10.31:27017/?authMechanism=DEFAULT"
+        connection_string = f"mongodb://root:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
         # Connect to MongoDB
         client = MongoClient(connection_string)
