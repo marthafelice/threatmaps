@@ -91,14 +91,14 @@ def process_and_save_data(name, domain_to_check, category, subcategory):
     # MongoDB Integration (if desired)
     try:
         # MongoDB Connection Parameters
-        db_user = "root"
-        db_password = "Sf409xqyNL3Eyue"
-        db_host = "10.10.10.31" 
-        db_port = "27017"
-        db_name = "threatmap_db"  
+        db_user = "xxx"
+        db_password = "xxx"
+        db_host = "xxx" 
+        db_port = "xxxx"
+        db_name = "xxx"  
 
         # MongoDB Connection String
-        connection_string = f"mongodb://root:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        connection_string = f"mongodb://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
         # Connect to MongoDB
         client = MongoClient(connection_string)
