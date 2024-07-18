@@ -59,13 +59,13 @@ if __name__ == "__main__":
     try:
         # MongoDB connection Paremeters
         db_user = "root"
-        db_password ="Sf409xqyNL3Eyue"
-        db_host = "10.10.10.31"
-        db_port = "27017"
-        db_name = "threatmap_db"
+        db_password =""
+        db_host = ""
+        db_port = ""
+        db_name = ""
 
         # MongoDB connection String
-        connection_string = f"mongodb://root:Sf409xqyNL3Eyue@10.10.10.31:27017/?authMechanism=DEFAULT"
+        connection_string = f"mongodb://root:xxxxxxx"
 
         # connect to MongoDB
         client = MongoClient(connection_string)
