@@ -58,14 +58,14 @@ if __name__ == "__main__":
     # MongoDB Integration
     try:
         # MongoDB connection Paremeters
-        db_user = "root"
+        db_user = ""
         db_password =""
         db_host = ""
         db_port = ""
         db_name = ""
 
         # MongoDB connection String
-        connection_string = f"mongodb://root:xxxxxxx"
+        connection_string = f"mongodb://root:"
 
         # connect to MongoDB
         client = MongoClient(connection_string)
